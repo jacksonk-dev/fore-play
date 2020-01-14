@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import ColorPanel from '../components/color-panel';
 
 function App() {
   return (
-    <div className="App">
-      Fore-play
+    <div>
+      <ColorPanel />
     </div>
   );
 }
