@@ -2,12 +2,15 @@
   "name": "fore-play",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jacksonk-dev.github.io/fore-play",
   "scripts": {
     "lint": "eslint . --cache ",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build -b master",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -26,6 +29,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "gh-pages": "^2.2.0",
     "prop-types": "^15.7.2"
   },
   "eslintConfig": {
