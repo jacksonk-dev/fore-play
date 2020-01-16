@@ -15,9 +15,9 @@ const FabLabel = styled.span`
   border-radius: 40%;
 `;
 
-const FabWrapper = styled.div`
-    width: 4rem;
-    height: 4rem;
+const FabButton = styled.button`
+    width: 6rem;
+    height: 6rem;
     padding: 1rem;
     border-radius: 50%;
     display: flex;
@@ -27,19 +27,24 @@ const FabWrapper = styled.div`
     background-color: ${({ hollow, color }) => (hollow ? 'inherit' : { primary: '#01579B', secondary: '#b71c1c' }[color])};
     border: 2px solid ${({ color }) => ({ primary: '#01579B', secondary: '#b71c1c' }[color])};
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    outline: none;
 `;
 
 const Fab = ({
-  children, label, showLabel, color, hollow,
+  children, label, showLabel, onClick, color, hollow,
 }) => (
   <Wrapper>
     {label && showLabel
     && (
       <FabLabel>{label}</FabLabel>
     )}
-    <FabWrapper color={color} hollow={hollow}>
+    <FabButton
+      color={color}
+      hollow={hollow}
+      onClick={onClick}
+    >
       {children}
-    </FabWrapper>
+    </FabButton>
   </Wrapper>
 );
 
@@ -49,6 +54,7 @@ Fab.propTypes = {
   showLabel: PropTypes.bool,
   color: PropTypes.string,
   hollow: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 Fab.defaultProps = {
@@ -56,6 +62,7 @@ Fab.defaultProps = {
   showLabel: false,
   color: 'primary',
   hollow: false,
+  onClick: null,
 };
 
 export default Fab;
