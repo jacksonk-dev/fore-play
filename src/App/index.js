@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import ColorPanel from '../components/color-panel';
@@ -21,12 +21,32 @@ const InnerWrapper = styled.div`
 `;
 
 function App() {
+  const [activeColor, setActiveColor] = useState('#009688');
+  const [numOfBoxes, setNumOfBoxes] = useState(340);
+  const [boxesPerColumn] = useState(10);
+
   return (
     <Wrapper>
-      <ColorPanel />
+      <ColorPanel
+        activeColor={activeColor}
+        setActiveColor={setActiveColor}
+      />
       <InnerWrapper>
-        <PlayGround />
-        <SideActionsPanel />
+        <PlayGround
+          numOfBoxes={numOfBoxes}
+          shadingColor={activeColor}
+          boxesPerColumn={boxesPerColumn}
+        />
+        <SideActionsPanel
+          onClicks={{
+            addBoxes: () => { setNumOfBoxes(numOfBoxes + boxesPerColumn); },
+            removeBoxes: () => {
+              if (numOfBoxes >= boxesPerColumn) {
+                setNumOfBoxes(numOfBoxes - boxesPerColumn);
+              }
+            },
+          }}
+        />
       </InnerWrapper>
     </Wrapper>
   );
