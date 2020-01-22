@@ -2,59 +2,59 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${({ numOfBoxes, boxesPerColumn }) => numOfBoxes / boxesPerColumn}, 4rem)
+import PlayGrid from './play-grid';
+import SideActionsPanel from './side-actions-panel';
+
+const InnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  flex-grow: 1;
 `;
 
-const PlayBox = styled.button`
-  width: 4rem;
-  height: 4rem;
-  outline: none;
-  border: 1px solid ${({ shading }) => (shading || '#E0E0E0')};
-  background-color: ${({ shading }) => (shading || 'inherit')}
-`;
 
-const PlayGround = ({ numOfBoxes, boxesPerColumn, shadingColor }) => {
-  const [shading, setShading] = useState({});
-  const boxes = [];
-  for (let i = 0; i < numOfBoxes; i += 1) {
-    boxes.push(PlayBox);
-  }
+const PlayGround = ({ shadingColor }) => {
+  const [boxes, setBoxes] = useState((function () {
+    const boxArray = [];
+    for (let i = 0; i < 340; i += 1) {
+      boxArray.push({ key: `p-box-${i}` });
+    }
+
+    return boxArray;
+  })());
+  const [boxesPerColumn] = useState(10);
+
   return (
-    <Wrapper
-      numOfBoxes={numOfBoxes}
-      boxesPerColumn={boxesPerColumn}
-    >
-      {
-        boxes.map((Box, i) => {
-          const key = `p-box-${i}`;
-          return (
-            <Box
-              key={key}
-              shading={shading[key]}
-              onClick={() => {
-                setShading({
-                  ...shading,
-                  [key]: shadingColor,
-                });
-              }}
-            />
-          );
-        })
-      }
-    </Wrapper>
+    <InnerWrapper>
+      <PlayGrid
+        boxes={boxes}
+        boxesPerColumn={boxesPerColumn}
+        onBoxClick={(boxKey) => {
+          setBoxes(boxes.map((boxObj) => {
+            if (boxObj.key === boxKey) {
+              return { ...boxObj, shading: shadingColor };
+            }
+            return boxObj;
+          }));
+        }}
+      />
+      <SideActionsPanel
+        onClicks={{
+          addBoxes: () => { },
+          removeBoxes: () => {
+            if (boxes.length >= boxesPerColumn) {
+              setBoxes(boxes.slice(0, boxes.length - 10));
+            }
+          },
+        }}
+      />
+    </InnerWrapper>
   );
 };
 
 PlayGround.propTypes = {
-  numOfBoxes: PropTypes.number.isRequired,
-  boxesPerColumn: PropTypes.number.isRequired,
-  shadingColor: PropTypes.string,
-};
-
-PlayGround.defaultProps = {
-  shadingColor: undefined,
+  shadingColor: PropTypes.string.isRequired,
 };
 
 export default PlayGround;
