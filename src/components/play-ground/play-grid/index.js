@@ -19,7 +19,7 @@ const PlayBox = styled.button`
   background-color: ${({ shading }) => (shading || 'inherit')}
 `;
 
-const PlayGround = ({ boxes, boxesPerColumn, onBoxClick }) => {
+const PlayGrid = ({ boxes, boxesPerColumn, onBoxClick }) => {
   const boxesInColumns = boxes.reduce((acc, entry) => {
     if (!acc[0]) {
       return [[entry]];
@@ -61,7 +61,7 @@ const PlayGround = ({ boxes, boxesPerColumn, onBoxClick }) => {
   );
 };
 
-PlayGround.propTypes = {
+PlayGrid.propTypes = {
   boxes: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
   })).isRequired,
@@ -69,4 +69,4 @@ PlayGround.propTypes = {
   onBoxClick: PropTypes.func.isRequired,
 };
 
-export default PlayGround;
+export default PlayGrid;
