@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 `;
 
 const GridColumn = styled.div`
+  display: grid;
 `;
 
 const PlayBox = styled.button`
