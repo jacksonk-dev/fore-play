@@ -39,6 +39,10 @@ const PlayGround = ({ shadingColor }) => {
     }
   };
 
+  const clearGround = () => {
+    setBoxes(boxes.map(({ shading, ...restOfProperties }) => restOfProperties));
+  };
+
   return (
     <InnerWrapper>
       <PlayGrid
@@ -57,6 +61,7 @@ const PlayGround = ({ shadingColor }) => {
         onClicks={{
           addBoxes,
           removeBoxes,
+          clearGround,
         }}
       />
     </InnerWrapper>

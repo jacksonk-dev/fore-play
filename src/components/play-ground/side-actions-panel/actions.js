@@ -23,6 +23,7 @@ export default [
   },
   {
     label: 'Clear',
+    onClick: 'clearGround',
     Icon: <ClearIcon />,
   },
   {
