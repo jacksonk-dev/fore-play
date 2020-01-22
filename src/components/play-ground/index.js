@@ -25,6 +25,20 @@ const PlayGround = ({ shadingColor }) => {
   })());
   const [boxesPerColumn] = useState(10);
 
+  const addBoxes = () => {
+    const newBoxBatch = [];
+    for (let i = boxes.length; i < boxes.length + boxesPerColumn; i += 1) {
+      newBoxBatch.push({ key: `p-box-${i}` });
+    }
+    setBoxes([...boxes, ...newBoxBatch]);
+  };
+
+  const removeBoxes = () => {
+    if (boxes.length >= boxesPerColumn) {
+      setBoxes(boxes.slice(0, boxes.length - 10));
+    }
+  };
+
   return (
     <InnerWrapper>
       <PlayGrid
@@ -41,12 +55,8 @@ const PlayGround = ({ shadingColor }) => {
       />
       <SideActionsPanel
         onClicks={{
-          addBoxes: () => { },
-          removeBoxes: () => {
-            if (boxes.length >= boxesPerColumn) {
-              setBoxes(boxes.slice(0, boxes.length - 10));
-            }
-          },
+          addBoxes,
+          removeBoxes,
         }}
       />
     </InnerWrapper>
