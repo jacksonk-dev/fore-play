@@ -15,9 +15,10 @@ const InnerWrapper = styled.div`
 
 
 const PlayGround = ({ shadingColor }) => {
+  const [maxNumOfBoxes] = useState(340);
   const [boxes, setBoxes] = useState((function () {
     const boxArray = [];
-    for (let i = 0; i < 340; i += 1) {
+    for (let i = 0; i < maxNumOfBoxes; i += 1) {
       boxArray.push({ key: `p-box-${i}` });
     }
 
@@ -26,6 +27,7 @@ const PlayGround = ({ shadingColor }) => {
   const [exploded, setExploded] = useState(false);
   const [unshadedHidden, hideUnshaded] = useState(false);
   const [boxesPerColumn] = useState(10);
+  const [groundClear, setGroundClear] = useState(true);
 
   const addBoxes = () => {
     const newBoxBatch = [];
@@ -43,6 +45,7 @@ const PlayGround = ({ shadingColor }) => {
 
   const clearGround = () => {
     setBoxes(boxes.map(({ shading, ...restOfProperties }) => restOfProperties));
+    setGroundClear(true);
   };
 
   const explode = () => {
@@ -69,11 +72,23 @@ const PlayGround = ({ shadingColor }) => {
             }
             return boxObj;
           }));
+          setGroundClear(false);
         }}
         exploded={exploded}
         hideUnshaded={unshadedHidden}
       />
       <SideActionsPanel
+        activeValues={{
+          groundClear,
+          exploded,
+          unshadedHidden,
+          groundUnclear: !groundClear,
+          implosionPossible: exploded,
+          explosionPossible: !exploded,
+          shapeVisibilityToggleable: true,
+          addBoxesPossible: maxNumOfBoxes > boxes.length,
+          removeBoxesPossible: boxes.length >= boxesPerColumn,
+        }}
         onClicks={{
           addBoxes,
           removeBoxes,

@@ -15,13 +15,16 @@ const FabWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const SideActionsPanel = ({ onClicks }) => (
+const SideActionsPanel = ({ onClicks, activeValues }) => (
   <Wrapper>
     {
-      actions.map(({ label, onClick, Icon }) => (
+      actions.map(({
+        label, active, onClick, Icon,
+      }) => (
         <FabWrapper key={label}>
           <Fab
             label={label}
+            disabled={!activeValues[active]}
             onClick={onClicks[onClick]}
           >
             {Icon}
@@ -34,6 +37,8 @@ const SideActionsPanel = ({ onClicks }) => (
 
 SideActionsPanel.propTypes = {
   onClicks: PropTypes.shape({}).isRequired,
+  activeValues: PropTypes.shape({}).isRequired,
+
 };
 
 export default SideActionsPanel;

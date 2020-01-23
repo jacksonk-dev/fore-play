@@ -26,12 +26,13 @@ const FabButton = styled.button`
     color: ${({ hollow, color }) => (hollow ? { primary: '#01579B', secondary: '#b71c1c' }[color] : '#fff')};
     background-color: ${({ hollow, color }) => (hollow ? 'inherit' : { primary: '#01579B', secondary: '#b71c1c' }[color])};
     border: 2px solid ${({ color }) => ({ primary: '#01579B', secondary: '#b71c1c' }[color])};
+    opacity: ${({ disabled }) => (disabled ? '.2' : '1')};
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     outline: none;
 `;
 
 const Fab = ({
-  children, label, showLabel, onClick, color, hollow,
+  children, label, showLabel, onClick, color, hollow, disabled,
 }) => (
   <Wrapper>
     {label && showLabel
@@ -42,6 +43,7 @@ const Fab = ({
       color={color}
       hollow={hollow}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </FabButton>
@@ -55,6 +57,7 @@ Fab.propTypes = {
   color: PropTypes.string,
   hollow: PropTypes.bool,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 Fab.defaultProps = {
@@ -63,6 +66,7 @@ Fab.defaultProps = {
   color: 'primary',
   hollow: false,
   onClick: null,
+  disabled: false,
 };
 
 export default Fab;
