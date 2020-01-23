@@ -23,6 +23,8 @@ const PlayGround = ({ shadingColor }) => {
 
     return boxArray;
   })());
+  const [exploded, setExploded] = useState(false);
+  const [unshadedHidden, hideUnshaded] = useState(false);
   const [boxesPerColumn] = useState(10);
 
   const addBoxes = () => {
@@ -43,6 +45,18 @@ const PlayGround = ({ shadingColor }) => {
     setBoxes(boxes.map(({ shading, ...restOfProperties }) => restOfProperties));
   };
 
+  const explode = () => {
+    setExploded(true);
+  };
+
+  const implode = () => {
+    setExploded(false);
+  };
+
+  const toggleUnshadedVisibility = () => {
+    hideUnshaded(!unshadedHidden);
+  };
+
   return (
     <InnerWrapper>
       <PlayGrid
@@ -56,12 +70,17 @@ const PlayGround = ({ shadingColor }) => {
             return boxObj;
           }));
         }}
+        exploded={exploded}
+        hideUnshaded={unshadedHidden}
       />
       <SideActionsPanel
         onClicks={{
           addBoxes,
           removeBoxes,
           clearGround,
+          explode,
+          implode,
+          toggleUnshadedVisibility,
         }}
       />
     </InnerWrapper>

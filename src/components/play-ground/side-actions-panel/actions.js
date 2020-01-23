@@ -2,7 +2,7 @@ import React from 'react';
 import {
   FaTrash as ClearIcon,
   FaBomb as ExplodeIcon,
-  FaSpaceShuttle as GravitateIcon,
+  FaEye as VisibilityIcon,
 } from 'react-icons/fa';
 import { GiImplosion as ImplosionIcon } from 'react-icons/gi';
 import {
@@ -14,28 +14,31 @@ export default [
   {
     label: 'Add Boxes',
     onClick: 'addBoxes',
-    Icon: <AddIcon style={{ fontSize: '2rem' }} />,
+    Icon: <AddIcon style={{ fontSize: '3rem' }} />,
   },
   {
     label: 'Remove Boxes',
     onClick: 'removeBoxes',
-    Icon: <RemoveIcon style={{ fontSize: '2rem' }} />,
+    Icon: <RemoveIcon style={{ fontSize: '3rem' }} />,
   },
   {
     label: 'Clear',
     onClick: 'clearGround',
-    Icon: <ClearIcon />,
+    Icon: <ClearIcon style={{ fontSize: '2.5rem' }} />,
+  },
+  {
+    label: 'Toggle Shape Visibility',
+    onClick: 'toggleUnshadedVisibility',
+    Icon: <VisibilityIcon style={{ fontSize: '2.5rem' }} />,
   },
   {
     label: 'Explode',
-    Icon: <ExplodeIcon />,
+    onClick: 'explode',
+    Icon: <ExplodeIcon style={{ fontSize: '2.5rem' }} />,
   },
   {
     label: 'Implode',
-    Icon: <ImplosionIcon />,
-  },
-  {
-    label: 'Gravitate',
-    Icon: <GravitateIcon />,
+    Icon: <ImplosionIcon style={{ fontSize: '2.5rem' }} />,
+    onClick: 'implode',
   },
 ];

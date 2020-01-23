@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  overflow: hidden;
+  margin-right: 2rem;
   display: grid;
-  grid-template-columns: repeat(${({ numOfBoxes, boxesPerColumn }) => numOfBoxes / boxesPerColumn}, 4rem)
+  flex-grow: 0;
+  grid-template-columns: repeat(${({ numOfBoxes, boxesPerColumn }) => numOfBoxes / boxesPerColumn}, 4rem);
+  grid-gap:  ${({ exploded }) => (exploded ? '3rem' : '0')};
+  transition: all 1s ease;
+  max-height: 50rem;
 `;
 
 const GridColumn = styled.div`
-  display: grid;
+  display:  grid;
+  grid-gap:  ${({ exploded }) => (exploded ? '3rem' : '0')};
+  transition: all 1s ease;
 `;
 
 const PlayBox = styled.button`
@@ -16,10 +24,14 @@ const PlayBox = styled.button`
   height: 4rem;
   outline: none;
   border: 1px solid ${({ shading }) => (shading || '#E0E0E0')};
-  background-color: ${({ shading }) => (shading || 'inherit')}
+  border: ${({ hideUnshaded }) => (hideUnshaded && 'none')};
+  background-color: ${({ shading }) => (shading || 'inherit')};
+  transition: all .5s ease;
 `;
 
-const PlayGrid = ({ boxes, boxesPerColumn, onBoxClick }) => {
+const PlayGrid = ({
+  boxes, boxesPerColumn, onBoxClick, exploded, hideUnshaded,
+}) => {
   const boxesInColumns = boxes.reduce((acc, entry) => {
     if (!acc[0]) {
       return [[entry]];
@@ -38,17 +50,23 @@ const PlayGrid = ({ boxes, boxesPerColumn, onBoxClick }) => {
     <Wrapper
       numOfBoxes={boxes.length}
       boxesPerColumn={boxesPerColumn}
+      exploded={exploded}
     >
       {
         boxesInColumns.map((collection, collectionIndex) => {
           const reactKey = `play-column-${collectionIndex}`;
           return (
-            <GridColumn key={reactKey}>
+            <GridColumn
+              key={reactKey}
+              exploded={exploded}
+            >
               {
                 collection.map(({ key, shading }) => (
                   <PlayBox
                     key={key}
                     shading={shading}
+                    exploded={exploded}
+                    hideUnshaded={hideUnshaded}
                     onClick={() => { onBoxClick(key); }}
                   />
                 ))
@@ -67,6 +85,8 @@ PlayGrid.propTypes = {
   })).isRequired,
   boxesPerColumn: PropTypes.number.isRequired,
   onBoxClick: PropTypes.func.isRequired,
+  exploded: PropTypes.bool.isRequired,
+  hideUnshaded: PropTypes.bool.isRequired,
 };
 
 export default PlayGrid;
