@@ -2,20 +2,20 @@
   "name": "fore-play",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jacksonk-dev.github.io/fore-play",
+  "homepage": ".",
   "scripts": {
     "lint": "eslint . --cache ",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build -b gh-pages",
-    "predeploy": "npm run build"
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "firebase": "^9.6.11",
     "react": "^16.12.0",
     "react-color": "^2.18.0",
     "react-dom": "^16.12.0",
